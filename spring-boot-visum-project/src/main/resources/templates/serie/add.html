@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::head"></head>
+<body>
+		<!-- Header-->
+	<div th:replace="layout/layout::navegation"></div>
+	<header class="bg-dark py-5">
+		<div class="container px-4 px-lg-5 my-5">
+			<div class="text-center text-white">
+				<h1 class="display-4 fw-bolder" th:text="${titulo}"></h1>
+				<p class="lead fw-normal text-white-50 mb-0">Guarda tus series y
+					peliculas favoritas</p>
+			</div>
+		</div>
+	</header>
+			<form th:action="@{/add}" th:object="${pelicula}" method="post"
+				class="signin-form d-md-flex m-4 row justifi-content-center">
+				<div class="half p-4 py-md-5">
+					<div class="w-100">
+						<h3 class="mb-4">Pelicula nueva</h3>
+					</div>
+					<div class="form-group mt-3">
+						<label class="label" for="nombre">Nombre</label> <input
+							type="text" th:field="*{nombre}" class="form-control"
+							placeholder="Nombre">
+					</div>
+					<div class="form-group mt-3">
+						<label class="label" for="puntuacion">Puntuacion</label> <input
+							type="number" th:field="*{puntuacion}" class="form-control"
+							placeholder="Puntuacion">
+					</div>
+					<div th:if="*{id} != null">
+						<input type="hidden" th:field="*{id}">
+					</div>
+				</div>
+				
+					<div class="form-group">
+						<button type="submit"
+							class="form-control btn btn-secondary rounded submit px-3">Agregar</button>
+					</div>
+				
+			</form>
+
+	<!-- Section-->
+
+	<div th:replace="layout/layout::footer"></div>
+</body>
+</html>
