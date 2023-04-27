@@ -7,18 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.bolsadeideas.springboot.app.models.entity.Pelicula;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 import com.bolsadeideas.springboot.app.models.service.IServicePeliculasDao;
 import com.bolsadeideas.springboot.app.models.service.IServiceUserDao;
-import com.bolsadeideas.springboot.app.models.service.ServicePeliculaDaoImpl;
-
-import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes("usuario")
