@@ -59,6 +59,7 @@ public class Usuario implements Serializable{
 	
 	public Usuario() {
 		peliculas=new ArrayList<>();
+		series = new ArrayList<>();
 	}
 	
 	@PrePersist
@@ -70,8 +71,19 @@ public class Usuario implements Serializable{
 		pelicula.setUsuario(this);
 		peliculas.add(pelicula);
 	}
-	public void removePelicula(Pelicula pelicula) {
+	public void removePelicula(Long id) {
+		Pelicula pelicula = this.getPeliculas().stream().filter(p->p.getId() == id).findFirst().orElse(null);
 		peliculas.remove(pelicula);
+	}
+	
+	
+	public void addSerie(Serie serie) {
+		serie.setUsuario(this);
+		series.add(serie);
+	}
+	public void removeSerie(Long id) {
+		Serie serie = this.getSeries().stream().filter(s->s.getId() == id).findFirst().orElse(null);
+		series.remove(serie);
 	}
 	
 	

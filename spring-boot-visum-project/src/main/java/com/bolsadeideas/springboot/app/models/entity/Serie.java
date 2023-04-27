@@ -2,7 +2,7 @@ package com.bolsadeideas.springboot.app.models.entity;
 
 import java.io.Serializable;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +13,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="series")
@@ -26,24 +25,25 @@ public class Serie implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_serie")
 	private Long id;
 	
 	@NotEmpty
 	private String nombre;
 	
+
 	@NotNull
-	@Size(min=1, max=10)
 	private Integer puntuacion;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="usuario_id")
-	private Usuario usuario;
-	
-	
+
+	@ManyToOne(fetch=FetchType.LAZY) 
+	//Lazy, carga peresoza (Consulta solo cuando se le llama), Eager(Consulta todo con las relaciones)
+	@JoinColumn(name="fk_usuario")
+	//@JsonProperty(access = Access.WRITE_ONLY)
+	private Usuario usuario;	
 	
 	public Serie() {
 	}
-
 
 
 	public String getNombre() {
@@ -82,17 +82,39 @@ public class Serie implements Serializable{
 
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 
 	
 
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj !=null) {
+			if(obj instanceof Serie) {
+				Serie s = (Serie) obj;
+				if(s.getId() == this.id)
+					return true;
+		
+			}
+		}
+			
+		return false;
+	}
 
 	@Override
 	public String toString() {
 		return "Serie [id=" + id + ", nombre=" + nombre + ", puntuacion=" + puntuacion + ", usuario=" + usuario + "]";
 	}
 
-	
 }

@@ -5,16 +5,8 @@
 <body>
 	<!-- Navigation-->
 	<div th:replace="layout/layout::navegation"></div>
-		<!-- Header-->
-	<header class="bg-dark py-5">
-		<div class="container px-4 px-lg-5 my-5">
-			<div class="text-center text-white">
-				<h1 class="display-4 fw-bolder" th:text="${titulo}"></h1>
-				<p class="lead fw-normal text-white-50 mb-0">Guarda tus series y
-					peliculas favoritas</p>
-			</div>
-		</div>
-	</header>
+	<!-- Header-->
+	<header th:replace="layout/layout::header"></header>
 	<!-- Section-->
 	<section class="py-5">
 		<div class="container px-4 px-lg-5 mt-5">
@@ -22,14 +14,15 @@
 				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
 				<!-- CUADRADITO CON LA PELICULA O SERIE -->
-				<div class="col mb-5" th:if="${not #lists.isEmpty(usuario.peliculas)}"
+				<div class="col mb-5"
+					th:if="${not #lists.isEmpty(usuario.peliculas)}"
 					th:each="pelicula:${usuario.peliculas}">
 					<div class="card h-100">
 						<!-- Product image-->
-					<!-- 	<img class="card-img-top"
+						<!-- 	<img class="card-img-top"
 							th:src="@{}+${pelicula.img}"
 							alt="..." />
-						<!-- Product details--> 
+						<!-- Product details-->
 						<div class="card-body p-4">
 							<div class="text-center">
 								<!-- Product name-->
@@ -43,22 +36,74 @@
 								<div class="d-flex justify-content-center">
 									<label th:text="' - '+ ${pelicula.puntuacion}+' - '"></label>
 								</div>
+								<div class="d-flex justify-content-center">
+									<label
+										th:text="' - '+ ${pelicula.getClass().getSimpleName()}+' - '"></label>
+								</div>
 								<!-- Product price-->
 							</div>
 						</div>
 						<!-- Product actions-->
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center float-right">
-								<a class="btn btn-outline-dark mt-auto" th:href="@{/pelicula/add/} + ${pelicula.id}">Editar</a>
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto"
+									th:href="@{/pelicula/add/} + ${pelicula.id}">Editar</a>
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 							<div class="text-center">
-								<a class="btn btn-outline-dark mt-auto" th:href="@{/pelicula/delete/} + ${pelicula.id}">Borrar</a>
+								<a class="btn btn-outline-dark mt-auto"
+									th:href="@{/pelicula/delete/} + ${pelicula.id}">Borrar</a>
 							</div>
 						</div>
 					</div>
 				</div>
+
+
+				<div class="col mb-5" th:if="${not #lists.isEmpty(usuario.series)}"
+					th:each="serie:${usuario.series}">
+					<div class="card h-100">
+						<!-- Product image-->
+						<!-- 	<img class="card-img-top"
+							th:src="@{}+${pelicula.img}"
+							alt="..." />
+						<!-- Product details-->
+						<div class="card-body p-4">
+							<div class="text-center">
+								<!-- Product name-->
+								<h5 class="fw-bolder" th:text="${serie.nombre}"></h5>
+								<!-- Estrellas -->
+								<div
+									class="d-flex justify-content-center small text-warning mb-2">
+									<div class="bi-star-fill"
+										th:each="i : ${#numbers.sequence(1,serie.puntuacion)}"></div>
+								</div>
+								<div class="d-flex justify-content-center">
+									<label th:text="' - '+ ${serie.puntuacion}+' - '"></label>
+								</div>
+								<div class="d-flex justify-content-center">
+									<label
+										th:text="' - '+ ${serie.getClass().getSimpleName()}+' - '"></label>
+								</div>
+								<!-- Product price-->
+							</div>
+						</div>
+						<!-- Product actions-->
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto"
+									th:href="@{/serie/add/} + ${serie.id}">Editar</a>
+							</div>
+						</div>
+						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+							<div class="text-center">
+								<a class="btn btn-outline-dark mt-auto"
+									th:href="@{/serie/delete/} + ${serie.id}">Borrar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</section>

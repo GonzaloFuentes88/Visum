@@ -16,23 +16,6 @@ public class ServicePeliculaDaoImpl implements IServicePeliculasDao{
 	@Autowired
 	private IPeliculaDao peliculaDao;
 
-	@Transactional(readOnly = true)
-	@Override
-	public List<Pelicula> findAll() {
-		return (List<Pelicula>) peliculaDao.findAll();
-	}
-
-	@Override
-	public Pelicula save(Pelicula pelicula) {
-		return peliculaDao.save(pelicula);
-		
-	}
-
-	@Override
-	@Transactional(readOnly = true)
-	public Pelicula findOne(Long id) {
-		return peliculaDao.findById(id).orElse(null);
-	}
 
 	@Override
 	public void delete(Long id) {
@@ -40,13 +23,6 @@ public class ServicePeliculaDaoImpl implements IServicePeliculasDao{
 		
 	}
 
-	
-	@Override
-	@Transactional(readOnly = true)
-	public List<Pelicula> findAllByUsuario_id(Long id) {
-		return peliculaDao.findAllByUsuario_id(id);
-	}
-
-  
+ 
 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
-import com.bolsadeideas.springboot.app.models.service.IServicePeliculasDao;
 import com.bolsadeideas.springboot.app.models.service.IServiceUserDao;
 
 @Controller
@@ -22,12 +21,7 @@ public class UserController {
 	@Autowired
 	@Qualifier("serviceUser")
 	IServiceUserDao serviceUser;
-	
-	@Autowired
-	@Qualifier("servicePelicula")
-	IServicePeliculasDao servicePelicula;
 
-	//ARREGLAR EL HOME PARA QUE CUANDO SE ELIMINE UN USUARIO NO SE CREE OTRO SOLO
 	
 	
 	@GetMapping("/home")

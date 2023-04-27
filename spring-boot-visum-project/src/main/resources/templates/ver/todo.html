@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout::head"></head>
+<body>
+	<div th:replace="layout/layout::navegation"></div>
+	<header th:replace="layout/layout::header"></header>
+
+
+	<section class="py-5">
+		<div class="container px-4 px-lg-5 mt-5">
+			<div
+				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<table th:if="${not #lists.isEmpty(usuario.peliculas)}" th:object="${usuario}" class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Categoria</th>
+							<th scope="col">Puntuacion</th>
+							<th scope="col">Editar</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody th:each="pelicula:*{peliculas}">
+						<tr>
+							<td th:text="${pelicula.nombre}"></td>
+							<td th:text="${pelicula.getClass().getSimpleName()}"></td>
+							<td th:text="${pelicula.puntuacion}"></td>
+							<td><a class="btn btn-success mt-auto"
+								th:href="@{/pelicula/add/} + ${pelicula.id}">Editar</a></td>
+							<td><a class="btn btn-danger mt-auto"
+								th:href="@{/pelicula/delete/} + ${pelicula.id}">Eliminar</a></td>
+
+						</tr>
+					</tbody>
+				</table>
+				<table th:if="${not #lists.isEmpty(usuario.series)}" th:object="${usuario}" class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Nombre</th>
+							<th scope="col">Categoria</th>
+							<th scope="col">Puntuacion</th>
+							<th scope="col">Editar</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody th:each="serie:*{series}">
+						<tr>
+							<td th:text="${serie.nombre}"></td>
+							<td th:text="${serie.getClass().getSimpleName()}"></td>
+							<td th:text="${serie.puntuacion}"></td>
+							<td><a class="btn btn-success mt-auto"
+								th:href="@{/serie/add/} + ${serie.id}">Editar</a></td>
+							<td><a class="btn btn-danger mt-auto"
+								th:href="@{/serie/delete/} + ${serie.id}">Eliminar</a></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+	<div th:replace="layout/layout::footer"></div>
+</body>
+</html>

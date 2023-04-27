@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,37 +12,35 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.bolsadeideas.springboot.app.models.entity.Pelicula;
+import com.bolsadeideas.springboot.app.models.entity.Serie;
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
-import com.bolsadeideas.springboot.app.models.service.IServicePeliculasDao;
+import com.bolsadeideas.springboot.app.models.service.IServiceSerieDao;
 import com.bolsadeideas.springboot.app.models.service.IServiceUserDao;
 
-import jakarta.servlet.http.HttpSession;
-
-
 @Controller
-@SessionAttributes("pelicula")
-@RequestMapping("/pelicula")
-public class PeliculaController {
-
-	@Autowired
-	IServiceUserDao userDao;
+@SessionAttributes("serie")
+@RequestMapping("/serie")
+public class SerieController {
 	
 	@Autowired
-	IServicePeliculasDao peliculaDao;
+	private IServiceUserDao userDao;
+	
+	@Autowired
+	@Qualifier("serviceSerie")
+	private IServiceSerieDao serieDao;
 	
 	@GetMapping("/add")
 	public String crearForm(Model model) {
-		Pelicula pelicula = new Pelicula();
+		Serie serie = new Serie();
 		
-		model.addAttribute("pelicula",pelicula);
-		return "/pelicula/add";
+		model.addAttribute("serie",serie);
+		return "/serie/add";
 	}
 	
 	@PostMapping("/add")
-	public String savePelicula(Pelicula pelicula, SessionStatus session, @SessionAttribute("usuario") Usuario usuario, Model model ) {
+	public String saveSerie(Serie serie, SessionStatus session, @SessionAttribute("usuario") Usuario usuario, Model model ) {
 		
-		usuario.addPelicula(pelicula);
+		usuario.addSerie(serie);
 		
 		userDao.save(usuario);
 		
@@ -52,15 +51,15 @@ public class PeliculaController {
 	
 	@GetMapping("/add/{id}")
 	public String editar(@PathVariable Long id,@SessionAttribute("usuario") Usuario usuario, Model model) {
-		Pelicula pelicula = usuario.getPeliculas().stream().filter(p->p.getId() == id).findFirst().orElse(null);
-		if(pelicula == null) {
+		Serie serie = usuario.getSeries().stream().filter(s->s.getId() == id).findFirst().orElse(null);
+		if(serie == null) {
 			return "redirect:/home";
 		}
 		
-		model.addAttribute("pelicula",pelicula);
+		model.addAttribute("serie",serie);
 		model.addAttribute("titulo", "Añadir Pelicula");
 		
-		return "/pelicula/add";
+		return "/serie/add";
 	}
 	
 	
@@ -68,15 +67,13 @@ public class PeliculaController {
 	@GetMapping("/delete/{id}")
 	public String eliminar(@PathVariable Long id, @SessionAttribute("usuario") Usuario usuario, Model model) {
 		
-		usuario.removePelicula(id);
+		usuario.removeSerie(id);
 
-		peliculaDao.delete(id);
+		serieDao.delete(id);
 		
 		return "redirect:/home";
 	}
 	
 	
-	
-	
-	
+
 }
