@@ -1,6 +1,7 @@
 package com.bolsadeideas.springboot.app.models.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -103,6 +104,18 @@ public class Pelicula implements Serializable{
 	
 	
 
+	@Override
+	public boolean equals(Object obj) {
+		if(obj !=null) {
+			if(obj instanceof Pelicula) {
+				Pelicula p = (Pelicula) obj;
+				if(p.getId() == this.id)
+					return true;
+			}
+		}
+			
+		return false;
+	}
 
 	@Override
 	public String toString() {

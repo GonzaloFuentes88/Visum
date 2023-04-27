@@ -67,10 +67,11 @@ public class Usuario implements Serializable{
 	}
 	
 	public void addPelicula(Pelicula pelicula) {
+		pelicula.setUsuario(this);
 		peliculas.add(pelicula);
 	}
-	public void removePelicula(Long id) {
-		
+	public void removePelicula(Pelicula pelicula) {
+		peliculas.remove(pelicula);
 	}
 	
 	
@@ -134,6 +135,7 @@ public class Usuario implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 
 	@Override
 	public String toString() {
