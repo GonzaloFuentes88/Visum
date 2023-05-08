@@ -27,5 +27,24 @@ public class VerController {
 		return "/ver/todo";
 	}
 	
+	@GetMapping("/peliculas")
+	public String verPeliculas(@SessionAttribute("usuario") Usuario usuario, Model model) {
+		usuario = userDao.findOne(usuario.getId());
+		model.addAttribute("titulo", "VisumWeb");
+		
+		model.addAttribute("usuario", usuario);
+		
+		return "/ver/peliculas";
+	}
+	@GetMapping("/series")
+	public String verSeries(@SessionAttribute("usuario") Usuario usuario, Model model) {
+		usuario = userDao.findOne(usuario.getId());
+		model.addAttribute("titulo", "VisumWeb");
+		
+		model.addAttribute("usuario", usuario);
+		
+		return "/ver/series";
+	}
+	
 
 }

@@ -33,6 +33,7 @@ public class PeliculaController {
 	@GetMapping("/add")
 	public String crearForm(Model model) {
 		Pelicula pelicula = new Pelicula();
+		model.addAttribute("titulo", "VisumWeb");
 		
 		model.addAttribute("pelicula",pelicula);
 		return "/pelicula/add";

@@ -33,7 +33,7 @@ public class ServiceUserDaoImpl implements IServiceUserDao{
 	
 	@Override
 	@Transactional(readOnly = true)
-	public Usuario findByUsernameAndPassword(String username, String password) {
+	public Usuario findByUsernameAndPassword(String username,String password) {
 		return userDao.findByUsernameAndPassword(username,password);
 	}
 

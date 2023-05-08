@@ -32,6 +32,7 @@ public class SerieController {
 	@GetMapping("/add")
 	public String crearForm(Model model) {
 		Serie serie = new Serie();
+		model.addAttribute("titulo", "VisumWeb");
 		
 		model.addAttribute("serie",serie);
 		return "/serie/add";
@@ -55,9 +56,8 @@ public class SerieController {
 		if(serie == null) {
 			return "redirect:/home";
 		}
-		
+		model.addAttribute("titulo", "VisumWeb");
 		model.addAttribute("serie",serie);
-		model.addAttribute("titulo", "Añadir Pelicula");
 		
 		return "/serie/add";
 	}

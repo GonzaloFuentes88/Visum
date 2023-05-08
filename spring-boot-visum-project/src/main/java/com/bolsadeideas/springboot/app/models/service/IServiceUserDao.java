@@ -2,9 +2,10 @@ package com.bolsadeideas.springboot.app.models.service;
 
 import java.util.List;
 
+
 import com.bolsadeideas.springboot.app.models.entity.Usuario;
 
-public interface IServiceUserDao {
+public interface IServiceUserDao{
 
 	public List<Usuario> findAll(); //Obtener la lista de clientes
 	
