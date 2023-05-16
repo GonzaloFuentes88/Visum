@@ -11,8 +11,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="series")
@@ -33,7 +36,18 @@ public class Serie implements Serializable{
 	
 
 	@NotNull
+	@Min(value = 0)
+	@Max(value = 10)
 	private Integer puntuacion;
+	
+	@NotNull
+	@Min(value = 0)
+	private Integer capitulos;
+	
+	@NotNull
+	@Column(name = "capitulos_vistos")
+	@Min(value = 0)
+	private Integer capitulosVistos;
 	
 
 	@ManyToOne(fetch=FetchType.LAZY) 
@@ -81,12 +95,6 @@ public class Serie implements Serializable{
 	}
 
 
-
-	
-
-	
-
-
 	public Long getId() {
 		return id;
 	}
@@ -98,6 +106,26 @@ public class Serie implements Serializable{
 	}
 
 	
+	public Integer getCapitulos() {
+		return capitulos;
+	}
+
+
+	public void setCapitulos(Integer capitulos) {
+		this.capitulos = capitulos;
+	}
+
+
+	public Integer getCapitulosVistos() {
+		return capitulosVistos;
+	}
+
+
+	public void setCapitulosVistos(Integer capitulosVistos) {
+		this.capitulosVistos = capitulosVistos;
+	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj !=null) {
@@ -111,10 +139,4 @@ public class Serie implements Serializable{
 			
 		return false;
 	}
-
-	@Override
-	public String toString() {
-		return "Serie [id=" + id + ", nombre=" + nombre + ", puntuacion=" + puntuacion + ", usuario=" + usuario + "]";
-	}
-
 }

@@ -3,6 +3,7 @@ package com.bolsadeideas.springboot.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,8 +41,11 @@ public class PeliculaController {
 	}
 	
 	@PostMapping("/add")
-	public String savePelicula(Pelicula pelicula, SessionStatus session, @SessionAttribute("usuario") Usuario usuario, Model model ) {
+	public String savePelicula(Pelicula pelicula,BindingResult result , SessionStatus session, @SessionAttribute("usuario") Usuario usuario, Model model ) {
 		
+		if(result.hasErrors()) {
+			return "/pelicula/add";
+		}
 		usuario.addPelicula(pelicula);
 		
 		userDao.save(usuario);

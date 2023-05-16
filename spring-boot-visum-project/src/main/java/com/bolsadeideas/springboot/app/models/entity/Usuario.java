@@ -44,12 +44,6 @@ public class Usuario implements Serializable{
 	@Email
 	private String email;
 	
-	@NotNull
-	@Column(name="fecha_nacimiento")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fechaNacimiento;
-	
 	@OneToMany(mappedBy="usuario",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	private List<Pelicula> peliculas;
 	
@@ -62,10 +56,6 @@ public class Usuario implements Serializable{
 		series = new ArrayList<>();
 	}
 	
-	@PrePersist
-	public void prePersist() {
-		fechaNacimiento= new Date();
-	}
 	
 	public void addPelicula(Pelicula pelicula) {
 		pelicula.setUsuario(this);
@@ -136,23 +126,9 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(Date fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", fechaNacimiento=" + fechaNacimiento + ", peliculas=" + peliculas + ", series=" + series + "]";
 	}
 	
 	

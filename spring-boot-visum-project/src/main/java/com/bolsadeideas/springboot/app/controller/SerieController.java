@@ -41,6 +41,10 @@ public class SerieController {
 	@PostMapping("/add")
 	public String saveSerie(Serie serie, SessionStatus session, @SessionAttribute("usuario") Usuario usuario, Model model ) {
 		
+		
+		if(serie.getCapitulosVistos() > serie.getCapitulos()) {
+			return "/serie/add";
+		}
 		usuario.addSerie(serie);
 		
 		userDao.save(usuario);
@@ -74,6 +78,4 @@ public class SerieController {
 		return "redirect:/home";
 	}
 	
-	
-
 }
